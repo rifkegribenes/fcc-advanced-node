@@ -37,8 +37,12 @@ mongo.connect(process.env.DATABASE, (err, db) => {
 
         //serialization and app.listen
       passport.serializeUser((user, done) => {
-   done(null, user._id);
- });
+       done(null, user._id);
+     });
+      
+     app.listen(process.env.PORT || 3000, () => {
+      console.log("Listening on port " + process.env.PORT);
+    }); 
 
 }});
 
@@ -46,13 +50,12 @@ mongo.connect(process.env.DATABASE, (err, db) => {
 
 
 passport.deserializeUser((id, done) => {
-  done(null,null);
-  // db.collection('users').findOne(
-  //   {_id: new ObjectID(id)},
-  //   (err, doc) => {
-      // done(null, doc);
-  //   }
-  // );
+  db.collection('users').findOne(
+    {_id: new ObjectID(id)},
+    (err, doc) => {
+      done(null, doc);
+    }
+  );
 });
 
 app.route('/')
@@ -60,7 +63,3 @@ app.route('/')
     // res.render('index');
     res.render(process.cwd() + '/views/pug/index', {title: 'Hello', message: 'Please login'});
   });
-
-app.listen(process.env.PORT || 3000, () => {
-  console.log("Listening on port " + process.env.PORT);
-});
