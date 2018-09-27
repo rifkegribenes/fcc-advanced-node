@@ -1128,7 +1128,7 @@ shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
   body-parser: ^1.16.0
-  cors: ^2.8.1
+  cors: ^2.8.4
   express: ^4.14.1
   express-session: ^1.15.6
   helmet: ^3.4.0

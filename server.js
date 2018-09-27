@@ -7,8 +7,10 @@ const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const mongo = require('mongodb').MongoClient;
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 
 fccTesting(app); //For FCC testing purposes
 app.use('/public', express.static(process.cwd() + '/public'));
@@ -84,7 +86,9 @@ app.route('/login')
 
 app.route('/profile')
   .get(ensureAuthenticated, (req,res) => {
-       res.render(process.cwd() + '/views/pug/profile');
+       res.render(process.cwd() + '/views/pug/profile', {
+         username: req.user.username
+       });
   });
 
 app.route('/')
