@@ -11,6 +11,7 @@
 		"start": "node server.js"
 	},
 	"dependencies": {
+<<<<<<< HEAD
 		"body-parser": "^1.16.0",
 		"cors": "^2.8.1",
 		"express": "^4.14.1",
@@ -24,6 +25,16 @@
 	},
 	"engines": {
 		"node": "8"
+=======
+		"express": "^4.14.1",
+		"cors": "^2.8.1",
+		"body-parser": "^1.16.0",
+		"mongodb": "^2.2.22",
+		"helmet": "^3.4.0"
+	},
+	"engines": {
+		"node": "4.4.3"
+>>>>>>> 6bbea301e56cddc089e31513a8b39d6cbc99aaf7
 	},
 	"repository": {
 		"type": "git",
@@ -35,4 +46,8 @@
 		"express"
 	],
 	"license": "MIT"
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6bbea301e56cddc089e31513a8b39d6cbc99aaf7
