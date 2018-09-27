@@ -2,13 +2,11 @@
 
 const express     = require('express');
 const bodyParser  = require('body-parser');
-// const path        = require('path');
 const fccTesting  = require('./freeCodeCamp/fcctesting.js');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const mongo = require('mongodb').MongoClient;
-
 
 const app = express();
 
@@ -19,7 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.set('view engine', 'pug');
-// app.set("views", path.join(__dirname, "views/pug"));
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -70,9 +67,30 @@ mongo.connect(process.env.DATABASE, (err, db) => {
 
 }});
 
+const ensureAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+      return next();
+  } else {
+    res.redirect('/');
+  }
+};
+
+
+app.route('/login')
+  .post(passport.authenticate('local', { failureRedirect: '/' }), (req, res) => {
+
+});
+
+app.route('/profile')
+  .get(ensureAuthenticated, (req,res) => {
+       res.render(process.cwd() + '/views/pug/profile');
+  });
 
 app.route('/')
   .get((req, res) => {
-    // res.render('index');
-    res.render(process.cwd() + '/views/pug/index', {title: 'Hello', message: 'Please login'});
+    res.render(process.cwd() + '/views/pug/index', {
+      title: 'Hello', 
+      message: 'Please login',
+      showLogin: true
+    });
   });
