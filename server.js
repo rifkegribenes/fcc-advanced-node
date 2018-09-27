@@ -71,6 +71,7 @@ const ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
       return next();
   } else {
+    console.log('redirecting to homepage');
     res.redirect('/');
   }
 };
