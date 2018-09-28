@@ -70,6 +70,7 @@ mongo.connect(process.env.DATABASE, (err, db) => {
 
         app.route('/')
           .get((req, res) => {
+          console.log('index');
             res.render(process.cwd() + '/views/pug/index', {title: 'Hello', message: 'login', showLogin: true, showRegistration: true});
           });
       
