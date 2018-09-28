@@ -69,6 +69,15 @@ mongo.connect(process.env.DATABASE, (err, db) => {
 
 }});
 
+app.route('/')
+  .get((req, res) => {
+    res.render(process.cwd() + '/views/pug/index', {
+      title: 'Hello', 
+      message: 'Please login',
+      showLogin: true
+    });
+  });
+
 const ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
       return next();
@@ -91,11 +100,14 @@ app.route('/profile')
        });
   });
 
-app.route('/')
+app.route('/logout')
   .get((req, res) => {
-    res.render(process.cwd() + '/views/pug/index', {
-      title: 'Hello', 
-      message: 'Please login',
-      showLogin: true
-    });
+      req.logout();
+      res.redirect('/');
   });
+
+app.use((req, res, next) => {
+  res.status(404)
+    .type('text')
+    .send('Not Found');
+});
